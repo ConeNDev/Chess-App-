@@ -15,15 +15,15 @@ import static com.chess.engine.board.Move.*;
 
 public class Queen extends Piece{
 
-    private final static int[] CANDIDATE_MOVE_VECTOR_CORDINATES={-9,9,7,-7,-8,8,1,-1};
+    private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES ={-9,9,7,-7,-8,8,1,-1};
 
-    Queen(int piecePosition, Alliance pieceAlliance) {
+    public Queen(Alliance pieceAlliance, int piecePosition) {
         super(piecePosition, pieceAlliance);
     }
     @Override
     public Collection<Move> calculateLegalMoves(final Board board) {
         final List<Move> legalMoves = new ArrayList<>();
-        for (final int candidateCoordinateOffset: CANDIDATE_MOVE_VECTOR_CORDINATES){
+        for (final int candidateCoordinateOffset: CANDIDATE_MOVE_VECTOR_COORDINATES){
 
             int candidateDestinationCoordinate=this.piecePosition;
             while(BoardUtils.isValidTileCordinate(candidateDestinationCoordinate)){
@@ -51,6 +51,10 @@ public class Queen extends Piece{
         }
 
         return ImmutableList.copyOf(legalMoves);
+    }
+    @Override
+    public String toString(){
+        return PieceType.QUEEN.toString();
     }
     private static boolean isFirstColumnExclusion(final int currentPosition,final int candidateOffset){
         return BoardUtils.FIRST_COLUMN[currentPosition] && (candidateOffset==-1 ||candidateOffset==-9 ||
