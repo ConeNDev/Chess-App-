@@ -18,7 +18,7 @@ public class Queen extends Piece{
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES ={-9,9,7,-7,-8,8,1,-1};
 
     public Queen(Alliance pieceAlliance, int piecePosition) {
-        super(piecePosition, pieceAlliance);
+        super(PieceType.QUEEN,piecePosition, pieceAlliance);
     }
     @Override
     public Collection<Move> calculateLegalMoves(final Board board) {
@@ -52,6 +52,12 @@ public class Queen extends Piece{
 
         return ImmutableList.copyOf(legalMoves);
     }
+
+    @Override
+    public Queen movePiece(final Move move) {
+        return new Queen(move.getMovedPiece().getPieceAlliance(), move.getDestinationCoordinate());
+    }
+
     @Override
     public String toString(){
         return PieceType.QUEEN.toString();
