@@ -67,6 +67,7 @@ public class Board {
         return this.blackPieces;
     }
 
+
     public Collection<Piece> getWhitePieces() {
         return this.whitePieces;
     }
@@ -149,7 +150,7 @@ public class Board {
         public Builder(){
             this.boardConfig=new HashMap<>();
         }
-        public Builder setPiece(final Piece piece){
+        public Builder  setPiece(final Piece piece){
             this.boardConfig.put(piece.getPiecePosition(),piece);
             return this;
         }

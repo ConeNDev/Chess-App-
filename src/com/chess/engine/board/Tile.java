@@ -40,7 +40,6 @@ public abstract class Tile {
 
         private EmptyTile(final int cordinate){
             super(cordinate);
-
         }
         @Override
         public String toString(){
@@ -68,7 +67,6 @@ public abstract class Tile {
         public String toString(){
             return getPiece().getPieceAlliance().isBlack() ? getPiece().toString().toLowerCase() :getPiece().toString();
         }
-
         @Override
         public boolean isTileOccupied() {
             return true;
