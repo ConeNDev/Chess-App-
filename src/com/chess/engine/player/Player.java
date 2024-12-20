@@ -16,7 +16,7 @@ public abstract class Player {
     protected final Board board;
     protected final King playerKing;
     protected final Collection<Move> legalMoves;
-    private final boolean isInCheck;
+    protected final boolean isInCheck;
 
     Player(final Board board, final Collection<Move> opponentMoves, final Collection<Move> legalMoves) {
         this.board=board;
@@ -39,7 +39,6 @@ public abstract class Player {
         }
         return ImmutableList.copyOf(attackMoves);
     }
-
     private King establishKing() {
         for (final Piece piece:getActivePieces()){
             if(piece.getPieceType().isKing()){

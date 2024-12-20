@@ -8,6 +8,7 @@ import com.chess.engine.player.WhitePlayer;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 
+
 import java.util.*;
 
 public class Board {
@@ -20,14 +21,15 @@ public class Board {
     private final BlackPlayer blackPlayer;
     private final Player currentPlayer;
 
+    private final Pawn enPassantPawn;
+
     public Board(final Builder builder){
         this.gameBoard=createGameBoard(builder);
         this.whitePieces=calculateActivePieces(this.gameBoard,Alliance.WHITE);
         this.blackPieces=calculateActivePieces(this.gameBoard,Alliance.BLACK);
-
+        this.enPassantPawn=builder.enPassantPawn;
         final Collection<Move> whiteStandardLegalMoves=calculateLegalMoves(this.whitePieces);
         final Collection<Move> blackStandardLegalMoves=calculateLegalMoves(this.blackPieces);
-
         this.whitePlayer=new WhitePlayer(this,whiteStandardLegalMoves,blackStandardLegalMoves);
         this.blackPlayer=new BlackPlayer(this,whiteStandardLegalMoves,blackStandardLegalMoves);
         this.currentPlayer=builder.nextMoveMaker.choosePlayer(this.whitePlayer,this.blackPlayer);
@@ -62,12 +64,13 @@ public class Board {
     public Player blackPlayer(){
         return this.blackPlayer;
     }
+    public Pawn getEnPassantPawn(){
+        return this.enPassantPawn;
+    }
 
     public Collection<Piece> getBlackPieces() {
         return this.blackPieces;
     }
-
-
     public Collection<Piece> getWhitePieces() {
         return this.whitePieces;
     }
@@ -77,7 +80,7 @@ public class Board {
         for(final Tile tile : gameBoard){
             if(tile.isTileOccupied()){
                 final Piece piece=tile.getPiece();
-                if(piece.getPieceAlliance()==alliance){
+                if(piece.getPieceAlliance() == alliance){
                     activePieces.add(piece);
                 }
             }
@@ -136,11 +139,9 @@ public class Board {
         builder.setMoveMaker(Alliance.WHITE);
         return builder.build();
     }
-
     public Iterable<Move> getAllLegalMoves() {
         return Iterables.unmodifiableIterable(Iterables.concat(this.whitePlayer.getLegalMoves(),this.blackPlayer.getLegalMoves()));
     }
-
     public static class Builder{
 
         Map<Integer, Piece> boardConfig;
@@ -150,7 +151,7 @@ public class Board {
         public Builder(){
             this.boardConfig=new HashMap<>();
         }
-        public Builder  setPiece(final Piece piece){
+        public Builder setPiece(final Piece piece){
             this.boardConfig.put(piece.getPiecePosition(),piece);
             return this;
         }
