@@ -3,6 +3,7 @@ package com.chess.engine.player;
 import com.chess.engine.Alliance;
 import com.chess.engine.board.Board;
 import com.chess.engine.board.Move;
+import com.chess.engine.board.MoveTransition;
 import com.chess.engine.pieces.King;
 import com.chess.engine.pieces.Piece;
 import com.google.common.collect.ImmutableList;
@@ -23,11 +24,13 @@ public abstract class Player {
         this.playerKing=establishKing();
         this.legalMoves=ImmutableList.copyOf(Iterables.concat(legalMoves,calculateKingCastles(legalMoves,opponentMoves))) ;
         this.isInCheck=!Player.calculateAttacksOnTile(this.playerKing.getPiecePosition(),opponentMoves).isEmpty();
+
     }
     public King getPlayerKing(){
         return this.playerKing;
     }
     public Collection<Move> getLegalMoves() {
+        //vraca dobro
         return this.legalMoves;
     }
     protected static Collection<Move> calculateAttacksOnTile(int piecePosition, Collection<Move> moves) {
@@ -59,6 +62,13 @@ public abstract class Player {
     public boolean isInStaleMate(){
         return !this.isInCheck && !hasEscapeMoves();
     }
+    public boolean isKingSideCastleCapable(){
+         return this.playerKing.isKingSideCastleCapable();
+    }
+    public boolean isQueenSideCastleCapable(){
+        return this.playerKing.isQueenSideCastleCapable();
+    }
+
     protected boolean hasEscapeMoves() {
         for(final Move move:legalMoves){
             final MoveTransition transition=makeMove(move);

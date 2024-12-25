@@ -28,6 +28,7 @@ public class Board {
         this.whitePieces=calculateActivePieces(this.gameBoard,Alliance.WHITE);
         this.blackPieces=calculateActivePieces(this.gameBoard,Alliance.BLACK);
         this.enPassantPawn=builder.enPassantPawn;
+        //ovde isto nema greske u ova dva ispod
         final Collection<Move> whiteStandardLegalMoves=calculateLegalMoves(this.whitePieces);
         final Collection<Move> blackStandardLegalMoves=calculateLegalMoves(this.blackPieces);
         this.whitePlayer=new WhitePlayer(this,whiteStandardLegalMoves,blackStandardLegalMoves);
@@ -52,7 +53,7 @@ public class Board {
         final List<Move> legalMoves=new ArrayList<>();
         for (final Piece piece:pieces){
             legalMoves.addAll(piece.calculateLegalMoves(this));
-        }
+        }//ovo lepo vraca provereno
         return ImmutableList.copyOf(legalMoves);
     }
     public Player currentPlayer(){
@@ -106,7 +107,7 @@ public class Board {
         builder.setPiece(new Knight(Alliance.BLACK,1));
         builder.setPiece(new Bishop(Alliance.BLACK,2));
         builder.setPiece(new Queen(Alliance.BLACK,3));
-        builder.setPiece(new King(Alliance.BLACK,4));
+        builder.setPiece(new King(Alliance.BLACK,4,true,true));
         builder.setPiece(new Bishop(Alliance.BLACK,5));
         builder.setPiece(new Knight(Alliance.BLACK,6));
         builder.setPiece(new Rook(Alliance.BLACK,7));
@@ -131,7 +132,7 @@ public class Board {
         builder.setPiece(new Knight(Alliance.WHITE,57));
         builder.setPiece(new Bishop(Alliance.WHITE,58));
         builder.setPiece(new Queen(Alliance.WHITE,59));
-        builder.setPiece(new King(Alliance.WHITE,60));
+        builder.setPiece(new King(Alliance.WHITE,60,true,true));
         builder.setPiece(new Bishop(Alliance.WHITE,61));
         builder.setPiece(new Knight(Alliance.WHITE,62));
         builder.setPiece(new Rook(Alliance.WHITE,63));

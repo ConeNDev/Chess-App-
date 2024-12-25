@@ -3,7 +3,7 @@ package com.tests.chess.engine.board;
 import com.chess.engine.board.Board;
 import com.chess.engine.board.BoardUtils;
 import com.chess.engine.board.Move;
-import com.chess.engine.player.MoveTransition;
+import com.chess.engine.board.MoveTransition;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
